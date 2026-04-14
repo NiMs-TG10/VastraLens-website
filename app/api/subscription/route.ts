@@ -19,13 +19,30 @@ export async function POST(req: Request) {
   }
   
   try {
-    const { email } = await req.json(); // Only expecting 'email' in the body
+    const { email } = await req.json();
 
-    // 1. Authenticate using existing Vercel Environment Variables
+    // 1. Validate Environment Variables
+    const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    const spreadsheetId = process.env.SUBSCRIPTION_SHEET_ID;
+
+    if (!clientEmail || !privateKey || !spreadsheetId) {
+      console.error('Missing Environment Variables:', {
+        GOOGLE_CLIENT_EMAIL: !!clientEmail,
+        GOOGLE_PRIVATE_KEY: !!privateKey,
+        SUBSCRIPTION_SHEET_ID: !!spreadsheetId
+      });
+      return NextResponse.json({ 
+        success: false, 
+        message: 'Server configuration error. Missing API credentials.' 
+      }, { status: 500 });
+    }
+
+    // 2. Authenticate
     const auth = new google.auth.GoogleAuth({
       credentials: {
-        client_email: process.env.GOOGLE_CLIENT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        client_email: clientEmail,
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
@@ -33,34 +50,48 @@ export async function POST(req: Request) {
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
     
-    // 2. Define the data to be written (Timestamp and Email Address)
+    // 3. Define the data to be written
     const values = [
       [
-        new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }), // Column A: Timestamp
-        email, // Column B: Email Address
+        new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }), // Timestamp
+        email, // Email Address
       ],
     ];
     
-    // 3. Write to the Google Sheet (Targeting the specific Sheet/Tab Name)
-    const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.SUBSCRIPTION_SHEET_ID, // Uses the new Subscription Sheet ID
-      range: `${SUBSCRIPTION_SHEET_NAME}!A:B`, // Targets the new sheet name and columns A and B
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values,
-      },
-    });
+    // 4. Write to the Google Sheet
+    try {
+      const response = await sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range: 'New_VL_Free_Subsciption!A:B', // Updated sheet name
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values,
+        },
+      });
 
-    return NextResponse.json({ 
-        success: true, 
-        rowsAppended: response.data.updates?.updatedRows 
-    }, { status: 200 });
+      return NextResponse.json({ 
+          success: true, 
+          rowsAppended: response.data.updates?.updatedRows 
+      }, { status: 200 });
+    } catch (sheetError: any) {
+      console.error('Google Sheets Error:', sheetError);
+      
+      if (sheetError.code === 404) {
+        return NextResponse.json({ 
+          success: false, 
+          message: 'Sheet not found. Please check if the sheet name "New_VL_Free_Subsciption" exists and the Spreadsheet ID is correct.' 
+        }, { status: 404 });
+      }
 
-  } catch (error) {
+      throw sheetError;
+    }
+
+  } catch (error: any) {
     console.error('Subscription API Error:', error);
     return NextResponse.json({ 
         success: false, 
-        message: 'Failed to log subscription data.' 
+        message: error.message || 'Failed to log subscription data.' 
     }, { status: 500 });
   }
 }
+

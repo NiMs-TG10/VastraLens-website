@@ -31,3 +31,6 @@ next-env.d.ts
 
 # Tools
 .kiro/
+
+# Scratch
+scratch/
