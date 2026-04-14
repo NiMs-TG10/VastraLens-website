@@ -32,9 +32,9 @@ export async function POST(req: Request) {
       ],
     ];
 
-    // 3. Write to the Google Sheet (Ensure GOOGLE_SHEET_ID is set in Vercel)
+    // 3. Write to the Google Sheet (Ensure CONTACT_SHEET_ID is set in Vercel)
     const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      spreadsheetId: process.env.CONTACT_SHEET_ID,
       range: 'Sheet1!A:E', // Adjust 'Sheet1' to your actual sheet name, A:E covers 5 columns
       valueInputOption: 'USER_ENTERED',
       requestBody: {

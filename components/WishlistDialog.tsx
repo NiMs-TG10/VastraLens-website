@@ -287,7 +287,7 @@ export default function WishlistDialog({
           <DialogDescription className="text-lg pt-2">
             {isSubmitted
               ? "Your spot for the free one-year subscription is secured! We'll email you with access instructions soon."
-              : "Be one of the first 100 users to claim a FREE One-Year Subscription to NUVOIS.ai."}
+              : "Be one of the first 100 users to claim a FREE One-Year Subscription to VastraLens."}
           </DialogDescription>
         </DialogHeader>
 

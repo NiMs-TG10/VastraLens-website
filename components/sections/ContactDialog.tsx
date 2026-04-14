@@ -344,30 +344,31 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onOpenChange }) =
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-surface-dark border border-white/10 text-white">
         <DialogHeader className="text-center">
-          <DialogTitle className="text-3xl font-display text-foreground">
-            Contact Our Team 
+          <DialogTitle className="text-3xl font-display text-white">
+            Contact Our Team
           </DialogTitle>
-          <DialogDescription className="text-lg text-foreground/70">
+          <DialogDescription className="text-base text-white/60">
             Send us a message for business inquiries.
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="py-4 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name" className="text-white/80">Name</Label>
             <Input
               id="name"
               placeholder="Your Full Name"
               value={formData.name}
               onChange={handleChange}
               required
+              className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-primary"
             />
           </div>
-          
+
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-white/80">Email</Label>
             <Input
               id="email"
               type="email"
@@ -375,44 +376,41 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onOpenChange }) =
               value={formData.email}
               onChange={handleChange}
               required
+              className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-primary"
             />
           </div>
-          
+
           <div className="space-y-2">
-            <Label htmlFor="enquiryType">Enquiry Type</Label>
-            <Select
-              onValueChange={handleSelectChange}
-              value={formData.enquiryType}
-              required
-            >
-              <SelectTrigger id="enquiryType">
+            <Label htmlFor="enquiryType" className="text-white/80">Enquiry Type</Label>
+            <Select onValueChange={handleSelectChange} value={formData.enquiryType}>
+              <SelectTrigger id="enquiryType" className="bg-white/5 border-white/10 text-white focus:ring-primary">
                 <SelectValue placeholder="Select enquiry type" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Personal Wardrobe Assistance">Personal Wardrobe Assistance</SelectItem>
-                <SelectItem value="Store Outfit Suggestion">Store Outfit Suggestion</SelectItem>
-                <SelectItem value="Other Business Inquiry">Other Business Inquiry</SelectItem>
+              <SelectContent className="bg-surface-dark border-white/10 text-white">
+                <SelectItem value="Personal Wardrobe Assistance" className="focus:bg-primary/20 focus:text-white">Personal Wardrobe Assistance</SelectItem>
+                <SelectItem value="Store Outfit Suggestion" className="focus:bg-primary/20 focus:text-white">Store Outfit Suggestion</SelectItem>
+                <SelectItem value="Other Business Inquiry" className="focus:bg-primary/20 focus:text-white">Other Business Inquiry</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message">Message</Label>
+            <Label htmlFor="message" className="text-white/80">Message</Label>
             <textarea
               id="message"
               rows={4}
               placeholder="Tell us about your inquiry..."
               value={formData.message}
               onChange={handleChange}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" // You might want to use a custom component for textarea if available
+              className="flex w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-dark disabled:cursor-not-allowed disabled:opacity-50 resize-none"
               required
             />
           </div>
 
           <DialogFooter className="pt-4">
-            <Button 
-              type="submit" 
-              className="w-full bg-primary hover:bg-primary/90 text-white"
+            <Button
+              type="submit"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-medium"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -426,18 +424,16 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onOpenChange }) =
           </DialogFooter>
         </form>
 
-        {/* Submission Status Feedback */}
         {submitSuccess === true && (
-          <div className="p-3 text-center text-sm text-green-600 border border-green-300 bg-green-50 rounded-md">
+          <div className="p-3 text-center text-sm text-green-400 border border-green-500/30 bg-green-500/10 rounded-md">
             Message sent successfully! We will get back to you soon.
           </div>
         )}
         {submitSuccess === false && (
-          <div className="p-3 text-center text-sm text-red-600 border border-red-300 bg-red-50 rounded-md">
+          <div className="p-3 text-center text-sm text-red-400 border border-red-500/30 bg-red-500/10 rounded-md">
             Failed to send message. Please try again or email us directly.
           </div>
         )}
-        
       </DialogContent>
     </Dialog>
   );

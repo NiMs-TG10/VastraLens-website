@@ -11,7 +11,7 @@ import { google } from 'googleapis';
 // like SUBSCRIPTION_SHEET_ID and use it here. 
 // For simplicity, we assume you are using the same GOOGLE_SHEET_ID but a different tab name.
 
-const SUBSCRIPTION_SHEET_NAME = 'Subscription Claims'; // <<< CHANGE THIS to your second sheet/tab name
+const SUBSCRIPTION_SHEET_NAME = 'Sheet1'; // Default tab name for the new sheet
 
 export async function POST(req: Request) {
   if (req.method !== 'POST') {
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     
     // 3. Write to the Google Sheet (Targeting the specific Sheet/Tab Name)
     const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID, // Uses the existing Sheet ID
+      spreadsheetId: process.env.SUBSCRIPTION_SHEET_ID, // Uses the new Subscription Sheet ID
       range: `${SUBSCRIPTION_SHEET_NAME}!A:B`, // Targets the new sheet name and columns A and B
       valueInputOption: 'USER_ENTERED',
       requestBody: {
