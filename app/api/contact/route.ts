@@ -11,12 +11,14 @@ export async function POST(req: Request) {
     const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
     const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
     const spreadsheetId = process.env.CONTACT_SHEET_ID;
+    const tabName = process.env.CONTACT_TAB_NAME || 'New_VL_Contact_US_Submission';
 
     if (!clientEmail || !privateKey || !spreadsheetId) {
       console.error('Missing Environment Variables:', {
         GOOGLE_CLIENT_EMAIL: !!clientEmail,
         GOOGLE_PRIVATE_KEY: !!privateKey,
-        CONTACT_SHEET_ID: !!spreadsheetId
+        CONTACT_SHEET_ID: !!spreadsheetId,
+        CONTACT_TAB_NAME: !!tabName
       });
       return NextResponse.json({ 
         success: false, 
@@ -49,9 +51,13 @@ export async function POST(req: Request) {
 
     // 4. Write to the Google Sheet
     try {
+      // Use quotes only if needed, but for robust range parsing 'Tab Name'!A:E is standard.
+      // The error "Unable to parse range" usually means the Tab Name is incorrect.
+      const range = tabName.includes(' ') ? `'${tabName}'!A:E` : `${tabName}!A:E`;
+      
       const response = await sheets.spreadsheets.values.append({
         spreadsheetId,
-        range: 'New_VL_Contact_US_Submission!A:E', // Updated sheet name
+        range,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values,
@@ -63,13 +69,18 @@ export async function POST(req: Request) {
           rowsAppended: response.data.updates?.updatedRows 
       }, { status: 200 });
     } catch (sheetError: any) {
-      console.error('Google Sheets Error:', sheetError);
+      console.error('Google Sheets Error:', {
+        message: sheetError.message,
+        code: sheetError.code,
+        tabName,
+        spreadsheetId
+      });
       
       // Handle the 404 error specifically
       if (sheetError.code === 404) {
         return NextResponse.json({ 
           success: false, 
-          message: 'Sheet not found. Please check if the sheet name "New_VL_Contact_US_Submission" exists and the Spreadsheet ID is correct.' 
+          message: `Sheet or Tab not found. Please verify: 1) Spreadsheet ID is correct. 2) Tab name "${tabName}" exists in the spreadsheet.` 
         }, { status: 404 });
       }
 

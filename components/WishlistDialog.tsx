@@ -311,12 +311,12 @@ export default function WishlistDialog({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="col-span-3 border-[#B9975B] focus:border-[#B9975B]"
+              className="col-span-3 border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary"
             />
 
             <Button
               type="submit"
-              className="w-full bg-[#B9975B] hover:bg-[#a08750] text-white font-semibold py-3 text-lg"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 text-xl rounded-xl transition-all duration-300 shadow-lg shadow-primary/25 transform hover:-translate-y-0.5 active:translate-y-0"
               disabled={isSubmitting || email.length < 5 || email.indexOf("@") === -1}
             >
               {isSubmitting ? "Securing Spot..." : "Secure My Free Subscription"}
