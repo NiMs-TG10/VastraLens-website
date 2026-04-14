@@ -13,7 +13,7 @@ interface ParticleCanvasProps {
 export default function ParticleCanvas({
   particleCount = 150,
   influenceRadius = 120,
-  connectionDistance = 100,
+  connectionDistance = 150,
 }: ParticleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null) as RefObject<HTMLCanvasElement>
 

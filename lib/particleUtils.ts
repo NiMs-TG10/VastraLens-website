@@ -30,9 +30,9 @@ export const BRAND_COLORS = [
   "#93C5FD",
 ] as const
 
-export const OPACITY_MIN = 0.15
-export const OPACITY_MAX = 0.45
-export const MAX_LINE_OPACITY = 0.25
+export const OPACITY_MIN = 0.5
+export const OPACITY_MAX = 0.85
+export const MAX_LINE_OPACITY = 0.5
 export const REPEL_STRENGTH = 2.5
 export const EASE_STRENGTH = 0.05
 
@@ -51,7 +51,7 @@ export function createParticle(
 ): Particle {
   const color = BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)]
   const opacity = OPACITY_MIN + Math.random() * (OPACITY_MAX - OPACITY_MIN)
-  const radius = 1.5 + Math.random() * 2.0 // [1.5, 3.5]
+  const radius = 2 + Math.random() * 3.0 // [2, 5]
   const x = Math.random() * canvasWidth
   const y = Math.random() * canvasHeight
 
