@@ -34,7 +34,7 @@ export default function Navigation({ onContactClick }: NavigationProps) {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-[#222222] backdrop-blur-md shadow-lg"
+          ? "bg-surface-dark backdrop-blur-md shadow-lg"
           : "bg-transparent backdrop-blur-sm"
         }`}
     >
@@ -42,7 +42,7 @@ export default function Navigation({ onContactClick }: NavigationProps) {
         {/* Logo - MADE INTO A BUTTON TO SCROLL TO HOME */}
         <button
           onClick={() => scrollToSection("home")}
-          className={`text-2xl font-serif font-bold text-[#B9975B] transition-colors duration-300 ${isScrolled ? "text-white" : "text-[#222222]"} cursor-pointer hover:text-[#B9975B]/80 focus:outline-none`}
+          className="text-2xl font-display font-bold cursor-pointer focus:outline-none bg-gradient-to-r from-purple-400 to-purple-200 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(168,85,247,0.6)] hover:drop-shadow-[0_0_18px_rgba(168,85,247,0.9)] transition-all duration-300"
           aria-label="Go to home screen"
         >
           VastraLens
@@ -50,7 +50,7 @@ export default function Navigation({ onContactClick }: NavigationProps) {
 
         {/* Nav Links */}
         <div
-          className={`hidden md:flex gap-8 items-center ${isScrolled ? "text-white" : "text-[#222222]"}`}
+          className={`hidden md:flex gap-8 items-center ${isScrolled ? "text-white" : "text-foreground"}`}
         >
           <NavLink
             id="app"
@@ -73,7 +73,7 @@ export default function Navigation({ onContactClick }: NavigationProps) {
         {/* CTA Button: NOW TRIGGERS THE POPUP */}
         <Button
           onClick={onContactClick} // <-- NEW: Calls the handler passed from the parent
-          className="bg-[#B9975B] hover:bg-[#a08750] text-white font-medium px-6 py-2"
+          className="bg-primary hover:bg-primary/90 text-white font-medium px-6 py-2"
         >
           Contact Us
         </Button>
@@ -95,7 +95,7 @@ const NavLink: React.FC<NavLinkProps> = ({ id, label, scrollToSection }) => (
     // Added 'group' for hover effects
     className="text-sm transition-all duration-200
                relative group
-               hover:text-[#B9975B]
+               hover:text-primary
                focus:outline-none"
   >
     {/* The actual text content */}
@@ -111,7 +111,7 @@ const NavLink: React.FC<NavLinkProps> = ({ id, label, scrollToSection }) => (
     {/* Custom Underline Element */}
     <span
       className="absolute bottom-[-4px] left-0 w-full h-[2px]
-                 bg-[#B9975B] transform origin-left scale-x-0
+                 bg-primary transform origin-left scale-x-0
                  transition-transform duration-300 ease-in-out
                  group-hover:scale-x-100"
     />

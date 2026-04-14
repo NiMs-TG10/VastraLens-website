@@ -346,10 +346,10 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onOpenChange }) =
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="text-center">
-          <DialogTitle className="text-3xl font-serif text-[#222222]">
+          <DialogTitle className="text-3xl font-display text-foreground">
             Contact Our Team 
           </DialogTitle>
-          <DialogDescription className="text-lg text-[#222222]/70">
+          <DialogDescription className="text-lg text-foreground/70">
             Send us a message for business inquiries.
           </DialogDescription>
         </DialogHeader>
@@ -412,7 +412,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onOpenChange }) =
           <DialogFooter className="pt-4">
             <Button 
               type="submit" 
-              className="w-full bg-[#B9975B] hover:bg-[#A88A4F] text-white"
+              className="w-full bg-primary hover:bg-primary/90 text-white"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

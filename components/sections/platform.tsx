@@ -84,9 +84,9 @@ export default function Platform() {
   );
 
   return (
-    <section id="platform" className="py-24 px-6 bg-[#222222] text-white">
+    <section id="platform" className="py-24 px-6 bg-surface-dark text-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-serif text-5xl font-bold text-center mb-4 text-balance">
+        <h2 className="font-display text-5xl font-bold text-center mb-4 text-balance">
           Power Your Platform. Integrate Our Intelligence.
         </h2>
 
@@ -102,14 +102,14 @@ export default function Platform() {
             return (
               <div
                 key={index}
-                className="p-8 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/15 transition-all border border-white/10 hover:border-[#B9975B]"
+                className="p-8 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/15 transition-all border border-white/10 hover:border-primary"
               >
                 <div className="mb-4">
-                  <div className="w-12 h-12 bg-[#B9975B] rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="font-serif text-xl font-bold mb-3">
+                <h3 className="font-display text-xl font-bold mb-3">
                   {feature.title}
                 </h3>
                 <p className="text-white/70 leading-relaxed">
@@ -125,7 +125,7 @@ export default function Platform() {
           {/* Language Label Added Here */}
           <div className="p-2 px-4 text-xs font-semibold uppercase tracking-wider bg-white/5 rounded-t-xl border-b border-white/10 text-white/70 flex justify-between">
             <span>Example Code</span>
-            <span className="text-[#B9975B]">JavaScript</span>
+            <span className="text-primary">JavaScript</span>
           </div>
           
           <div className="p-8">

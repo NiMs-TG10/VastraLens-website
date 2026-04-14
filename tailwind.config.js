@@ -10,6 +10,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: 'var(--primary)',
+        'primary-foreground': 'var(--primary-foreground)',
+        'surface-dark': 'var(--surface-dark)',
+        'surface-dark-foreground': 'var(--surface-dark-foreground)',
+      },
+      fontFamily: {
+        display: ['var(--font-display)', 'sans-serif'],
+        sans: ['var(--font-sans)', 'sans-serif'],
+      },
       // Custom Keyframes for the Animation
       keyframes: {
         fadeInUp: {

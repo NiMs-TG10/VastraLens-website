@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Syne, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import SnowfallEffect from "@/components/SnowfallEffect";
 import "./globals.css";
 
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "VastraLens",
@@ -27,7 +35,7 @@ export default function RootLayout({
   return (
     // Add suppressHydrationWarning={true} to the html tag
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`font-sans antialiased`}>
+      <body className={`${syne.variable} ${inter.variable} font-sans antialiased`}>
         <SnowfallEffect />
         {children}
         <Analytics />
