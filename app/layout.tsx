@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Syne, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import SnowfallEffect from "@/components/SnowfallEffect";
+// import SnowfallEffect from "@/components/SnowfallEffect";
 import "./globals.css";
 
 const syne = Syne({
@@ -36,7 +36,7 @@ export default function RootLayout({
     // Add suppressHydrationWarning={true} to the html tag
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${syne.variable} ${inter.variable} font-sans antialiased`}>
-        <SnowfallEffect />
+        {/* <SnowfallEffect /> */}
         {children}
         <Analytics />
       </body>

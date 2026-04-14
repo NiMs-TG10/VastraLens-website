@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { ArrowDown } from "lucide-react"
+import ParticleCanvas from "@/components/effects/ParticleCanvas"
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -13,6 +14,8 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      {/* Particle canvas — z-index: 1, sits below bg image and overlay */}
+      <ParticleCanvas />
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
